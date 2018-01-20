@@ -1,0 +1,26 @@
+pipeline {
+    agent any 
+
+    stages {
+        stage('Build') { 
+            steps {
+                withMaven(maven : 'm2') 
+                sh 'mvn clean install' 
+            }
+
+        }
+        stage('Test'){
+            steps {
+                withMaven(maven : 'm2' )
+                sh 'mvn test'
+                junit 'reports/**/*.xml' 
+            }
+        }
+        stage('Deploy') {
+            steps {
+                withMaven(maven : 'm2')
+                sh 'mvn package'
+            }
+        }
+    }
+}
