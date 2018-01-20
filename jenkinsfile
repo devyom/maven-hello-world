@@ -4,8 +4,9 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                withMaven(maven : 'M2') 
-                sh 'mvn clean install' 
+                checkout https://github.com/devyom/maven-hello-world.git
+                   withMaven(maven : 'M2') 
+                      sh 'mvn clean install' 
             }
 
         }
